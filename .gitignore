@@ -1,0 +1,26 @@
+# Gradle and build output
+.gradle/
+.kotlin/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Never commit secrets or real data
+*.jks
+*.keystore
+keystore.properties
+*.db
+*.db-shm
+*.db-wal
+*.trackching-backup
