@@ -4,6 +4,8 @@ A personal finance tracker. It tracks and gives reports on your spending, income
 credit and IOUs by the day and by event. This will be available as a mobile application for Android.
 A web app version is planned to be developed in the future for iPhones.
 
+This project is a personal side project of mine to practice mobile app development. 
+
 ## Project layout
 
 | Folder | What lives there |
