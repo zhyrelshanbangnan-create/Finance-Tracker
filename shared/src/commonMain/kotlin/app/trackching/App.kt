@@ -1,49 +1,58 @@
 package app.trackching
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.resources.painterResource
-
-import trackching.shared.generated.resources.Res
-import trackching.shared.generated.resources.compose_multiplatform
+import androidx.compose.ui.unit.dp
+import app.trackching.db.TrackchingDatabase
 
 @Composable
-@Preview
-fun App() {
+fun App(database: TrackchingDatabase) {
+    val queries = database.savedAmountQueries
+
+    var input by remember { mutableStateOf("") }
+    var saved by remember { mutableStateOf(queries.latest().executeAsOneOrNull()) }
+
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
         Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().safeContentPadding().padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Hello Trackching!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+            Text("Hello Trackching", style = MaterialTheme.typography.headlineMedium)
+
+            OutlinedTextField(
+                value = input,
+                onValueChange = { input = it },
+                label = { Text("Amount (e.g. 325.00)") },
+            )
+
+            Button(onClick = {
+                val centavos = parseCentavos(input)
+                if (centavos != null) {
+                    queries.save(centavos)
+                    saved = centavos
+                    input = ""
                 }
+            }) {
+                Text("Save")
             }
+
+            Text(
+                text = if (saved == null) "Nothing saved yet"
+                else "Saved: ₱ ${formatCentavos(saved!!)}",
+            )
         }
     }
 }
