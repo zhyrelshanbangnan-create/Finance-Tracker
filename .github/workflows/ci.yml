@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  android:
+    name: Build and test (Android)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4          # 1. download code
+      - uses: actions/setup-java@v4        # 2. install Java
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@v4   # 3. set up Gradle + caching
+      - run: ./gradlew build               # 4. build, run tests, lint
+      - uses: actions/upload-artifact@v4   # 5. save APK to download
+        with:
+          name: trackching-debug-apk
+          path: androidApp/build/outputs/apk/debug/*.apk

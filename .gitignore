@@ -1,0 +1,35 @@
+# Build output
+**/build/
+!src/**/build/
+.gradle/
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Editor and computer-specific files
+.idea/
+*.iml
+local.properties
+.DS_Store
+node_modules/
+
+# iPhone native project files (unused for now)
+xcuserdata/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# Secrets
+*.jks
+*.keystore
+keystore.properties
+
+# Real money data
+*.db
+*.db-shm
+*.db-wal
+*.trackching-backup
