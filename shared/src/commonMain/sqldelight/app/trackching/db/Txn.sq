@@ -1,0 +1,18 @@
+CREATE TABLE txn (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    kind TEXT NOT NULL CHECK (kind IN ('EXPENSE', 'INCOME', 'TRANSFER')),
+    centavos INTEGER NOT NULL CHECK (centavos > 0),
+    account_id INTEGER NOT NULL REFERENCES account(id),
+    to_account_id INTEGER REFERENCES account(id),
+    occurred_at INTEGER NOT NULL
+);
+
+insert:
+INSERT INTO txn(kind, centavos, account_id, to_account_id, occurred_at)
+VALUES (?, ?, ?, ?, ?);
+
+delete:
+DELETE FROM txn WHERE id = ?;
+
+lastId:
+SELECT last_insert_rowid();
