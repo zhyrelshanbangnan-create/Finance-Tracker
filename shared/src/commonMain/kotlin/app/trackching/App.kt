@@ -49,10 +49,7 @@ fun App(database: TrackchingDatabase) {
                 Text("Save")
             }
 
-            Text(
-                text = if (saved == null) "Nothing saved yet"
-                else "Saved: ₱ ${formatCentavos(saved!!)}",
-            )
+            saved?.let { Amount(centavos = it, kind = AmountKind.Expense) }
         }
     }
 }
