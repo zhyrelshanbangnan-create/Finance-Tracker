@@ -63,6 +63,7 @@ fun AppShell(database: TrackchingDatabase) {
         Box(Modifier.padding(padding).fillMaxSize()) {
             when (tab) {
                 Tab.Home -> App(database)
+                Tab.Events -> ComponentGallery() // temporary, removed in step 3
                 else -> Text("${tab.label} is coming soon", Modifier.align(Alignment.Center))
             }
         }
