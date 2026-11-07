@@ -13,7 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val database = createDatabase(applicationContext)
         setContent {
-            App(database)
+            TrackchingTheme {
+                AppShell(database)
+            }
         }
     }
 }

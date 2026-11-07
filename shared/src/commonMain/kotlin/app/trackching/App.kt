@@ -25,31 +25,29 @@ fun App(database: TrackchingDatabase) {
     var input by remember { mutableStateOf("") }
     var saved by remember { mutableStateOf(queries.latest().executeAsOneOrNull()) }
 
-    MaterialTheme {
-        Column(
-            modifier = Modifier.fillMaxSize().safeContentPadding().padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text("Hello Trackching", style = MaterialTheme.typography.headlineMedium)
+    Column(
+        modifier = Modifier.fillMaxSize().safeContentPadding().padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text("Hello Trackching", style = MaterialTheme.typography.headlineMedium)
 
-            OutlinedTextField(
-                value = input,
-                onValueChange = { input = it },
-                label = { Text("Amount (e.g. 325.00)") },
-            )
+        OutlinedTextField(
+            value = input,
+            onValueChange = { input = it },
+            label = { Text("Amount (e.g. 325.00)") },
+        )
 
-            Button(onClick = {
-                val centavos = parseCentavos(input)
-                if (centavos != null) {
-                    queries.save(centavos)
-                    saved = centavos
-                    input = ""
-                }
-            }) {
-                Text("Save")
+        Button(onClick = {
+            val centavos = parseCentavos(input)
+            if (centavos != null) {
+                queries.save(centavos)
+                saved = centavos
+                input = ""
             }
-
-            saved?.let { Amount(centavos = it, kind = AmountKind.Expense) }
+        }) {
+            Text("Save")
         }
+
+        saved?.let { Amount(centavos = it, kind = AmountKind.Expense) }
     }
 }
