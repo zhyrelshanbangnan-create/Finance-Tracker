@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 data class TrackchingColors(
     val band: Color,      // cards and list boxes
     val band2: Color,     // screen background
+    val sheet: Color,     // bottom sheets
     val field: Color,     // inputs and unselected chips
     val ink: Color,       // main text
     val ink2: Color,      // secondary text
@@ -27,6 +28,7 @@ data class TrackchingColors(
 val DarkColors = TrackchingColors(
     band = Color(0xFF000000),
     band2 = Color(0xFF262626),
+    sheet = Color(0xFF17181C),
     field = Color(0xFF24262C),
     ink = Color(0xFFFFFFFF),
     ink2 = Color(0xFFA9ADB7),
@@ -43,6 +45,7 @@ val DarkColors = TrackchingColors(
 val LightColors = TrackchingColors(
     band = Color(0xFFFFFFFF),
     band2 = Color(0xFFE4E6EB),
+    sheet = Color(0xFFFFFFFF),
     field = Color(0xFFF1F2F5),
     ink = Color(0xFF111216),
     ink2 = Color(0xFF5A5F6B),
